@@ -1,0 +1,17 @@
+---
+# file: roles/compute/tasks/main.yml
+
+
+ - name: Git
+   apt:
+     name: "git"
+     state: installed
+   tags: git
+ 
+ - name: Vim
+   apt:
+     name: vim
+     state: installed
+   tags: vim
+
+ 

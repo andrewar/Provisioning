@@ -1,0 +1,6 @@
+---
+# file: vault.yml - define vault(RAID storage) systems
+ - hosts: vaults
+   roles:
+     - common
+     - vault

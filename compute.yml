@@ -1,0 +1,6 @@
+---
+# file: compute.yml - define compute host characteristics
+ - hosts: compute
+   roles:
+     - common
+     - compute

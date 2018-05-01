@@ -1,0 +1,21 @@
+---
+# file: roles/common/tasks/main.yml
+
+ - name: Update
+   apt:
+     name: "*"
+     state: latest
+
+ - name: Upgrade
+   apt:
+     upgrade: dist
+
+ - name: Cleanup-packages
+   apt:
+     autoclean: yes
+
+ - name: Remove unneeded packages
+   apt:
+     autoremove: yes
+
+ 

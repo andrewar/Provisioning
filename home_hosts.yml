@@ -1,0 +1,24 @@
+# file: home_hosts
+
+[compute]
+michael
+uriel
+stealth
+
+[vaults]
+michael
+uriel
+
+[monitors]
+michael
+
+[fileservers]
+michael
+
+[docker-master]
+michael
+
+[docker-workers]
+stealth
+uriel
+

@@ -1,0 +1,8 @@
+---
+# file: home.yml - setup all roles for home servers
+#- import_playbook: vault.yml
+#- import_playbook: fileserver.yml
+#- import_playbook: docker-master.yml
+#- import_playbook: docker-worker.yml
+#- import_playbook: monitor.yml
+ - import_playbook: compute.yml
