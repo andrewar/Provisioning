@@ -1,0 +1,101 @@
+# Docker Common 
+#
+# Will need: custom facts, which will generate the docker swarm token
+
+- name: Add lsb-release
+  apt:
+    name: lsb-release
+    state: latest
+    force_apt_get: true
+  become: true
+  become_user: root
+
+- name: Install Docker Prereqs apt-transport-https
+  apt:
+    name: "apt-transport-https" 
+    state: latest
+    force_apt_get: true
+  become: true
+  become_user: root
+
+- name: Install Docker Prereqs ca-certificates
+  apt:
+    name: "ca-certificates" 
+    state: latest
+  become: true
+  become_user: root
+
+- name: Install Docker Prereqs curl
+  apt:
+    name: "curl" 
+    state: latest
+  become: true
+  become_user: root
+
+- name: Install Docker Prereqs software-properties-common
+  apt:
+    name: "software-properties-common" 
+    state: latest
+  become: true
+  become_user: root
+
+- name: Add Docker GPG key (Debian)
+  shell: curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+  become: true
+  become_user: root
+  when: ansible_distribution == "Debian"
+
+- name: Add Docker repo (Debian)
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+    state: present
+  when: ansible_distribution == "Debian"
+  become: true
+  become_user: root
+
+- name: Add Docker GPG key (Ubuntu)
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  become: true
+  become_user: root
+  when: ansible_distribution == "Ubuntu"
+
+- name: Add Docker repo (Ubuntu)
+  apt_repository:
+    repo: deb https://download.docker.com/linux/{{ ansible_distribution|lower  }} {{ ansible_distribution_release }} stable
+    state: present
+  when: ansible_distribution == "Ubuntu"
+  become: true
+  become_user: root
+
+- name: Update apt
+  shell: apt-get update
+  become: true
+  become_user: root
+
+- name: Install docker-ce
+  apt: 
+    name: docker-ce
+    state: latest
+    force_apt_get: true
+
+- name: Create Fact Directory
+  file: 
+    path: /etc/ansible/facts.d
+    state: directory
+    mode: 0700
+    owner: root
+
+- name: Create Fact file
+  template: 
+    src: check-docker-swarm-token.ini
+    dest: /etc/ansible/facts.d/managertoken.fact
+    owner: root
+    mode: 0700
+
+- name: Create Worker Fact file
+  template: 
+    src: check-docker-swarm-worker-token.ini
+    dest: /etc/ansible/facts.d/workertoken.fact
+    owner: root
+    mode: 0700
+

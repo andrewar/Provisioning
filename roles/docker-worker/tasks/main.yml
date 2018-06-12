@@ -1,0 +1,9 @@
+# Docker Worker
+#
+- name: Docker Worker join swarm
+  shell: docker swarm join --token {{ hostvars[groups['docker-manager'][0]]['ansible_local']['workertoken']  }} {{ hostvars[groups['docker-manager'][0]]['ansible_eth0']['ipv4']['address'] }}:2377 
+  become: true
+  become_user: root
+  when:
+    - hostvars[groups['docker-manager'][0]]['ansible_local'] is defined
+    - hostvars[groups['docker-manager'][0]]['ansible_local']['workertoken'] is defined

@@ -1,6 +1,12 @@
 ---
 # file: compute.yml - define compute host characteristics
- - hosts: compute
+ - hosts: docker-manager
+   sudo: yes
    roles:
-     - common
-     - compute
+     - docker-common
+     - docker-manager
+ - hosts: docker-worker
+   sudo: yes
+   roles:
+     - docker-common
+     - docker-worker

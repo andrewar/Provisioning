@@ -1,0 +1,19 @@
+# file: home_hosts
+
+[all]
+35.227.170.161
+104.196.6.49
+
+[compute]
+
+[vaults]
+
+[monitors]
+
+[fileservers]
+
+[docker-manager]
+35.227.170.161
+
+[docker-worker]
+104.196.6.49

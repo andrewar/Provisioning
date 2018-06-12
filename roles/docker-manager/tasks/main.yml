@@ -1,0 +1,21 @@
+# Docker Manager
+#
+# Will need: custom facts, which will generate the docker swarm token
+
+
+- name: Docker Swarm Init
+  shell: docker swarm init
+  become: true
+  become_user: root
+  ignore_errors: yes
+  when: 
+    - hostvars[groups['docker-manager'][0]]['ansible_local'] is not defined
+    - hostvars[groups['docker-manager'][0]]['ansible_local']['managertoken'] is not defined
+
+
+- name: Join Docker Swarm
+  shell: docker swarm join --token {{ hostvars[docker-manager[0]]['ansible_local']['managertoken'] }} {{ item[0] }}:2377 manager
+  when: hostvars[groups['docker-manager'][0]]['ansible_local']['managertoken'] is defined and groups['docker-manager'][0] != inventory_hostname
+
+- name: Reload facts for swarm tokens
+  setup: filter=ansible_local 

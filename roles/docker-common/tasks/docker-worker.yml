@@ -1,0 +1,6 @@
+# Docker Worker
+#
+- name: Docker Worker join swarm
+  shell: docker swarm join --token {{ swarm-worker-token }} {{ hostvars[docker-manager[0]] }}:2377 
+  become: true
+  become_user: root
