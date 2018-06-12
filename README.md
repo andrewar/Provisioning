@@ -1,4 +1,4 @@
-#### Provisiong Repo
+## Provisiong Repo
 
 A collection of the provisioning scripts I use for home and 
 production.
@@ -10,7 +10,7 @@ use both at home for astrophotography image manipulation and for
 the production environment of my web project, commonal.ity (name
 to be determined).
 
-## To Use:
+#### To Use:
 * add hosts to a host file (see gce_hosts.yml for format)
 * ansible-playbook -i {hostsfile} compute.yml
 
